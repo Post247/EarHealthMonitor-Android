@@ -90,7 +90,6 @@ class MainActivity : AppCompatActivity() {
         // The cap service is started on every resume, so it is effectively
         // always on while the app has been opened.
         tvServiceState.text = "Cap active"
-        tvServiceState.setTextColor(ContextCompat.getColor(this, R.color.accent))
 
         refreshVolumeDisplay()
         requestNotificationPermissionIfNeeded()
@@ -205,7 +204,7 @@ class MainActivity : AppCompatActivity() {
         tvElapsed.text = SessionLogic.format(active)
         tvSessionState.text = if (store.sessionPaused) "Paused" else "Listening"
         tvSessionState.setTextColor(
-            ContextCompat.getColor(this, if (store.sessionPaused) R.color.text_muted else R.color.accent)
+            ContextCompat.getColor(this, if (store.sessionPaused) R.color.text_muted else R.color.danger)
         )
 
         if (active >= 60 * 60_000L && !store.continuousAlertSent) {

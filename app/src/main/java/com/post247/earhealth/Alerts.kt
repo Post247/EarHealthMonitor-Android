@@ -55,7 +55,7 @@ object Alerts {
             .build()
     }
 
-    fun alert(ctx: Context, title: String, body: String, color: Int = Color.parseColor("#34D399")) {
+    fun alert(ctx: Context, title: String, body: String, color: Int = Color.parseColor("#FFD600")) {
         val nm = ctx.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         val openIntent = PendingIntent.getActivity(
             ctx, 1, Intent(ctx, MainActivity::class.java),

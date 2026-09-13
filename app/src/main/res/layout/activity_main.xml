@@ -5,6 +5,47 @@
     android:orientation="vertical"
     android:background="@color/background">
 
+    <!-- Header banner -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@color/ink"
+        android:paddingStart="20dp"
+        android:paddingTop="20dp"
+        android:paddingEnd="20dp"
+        android:paddingBottom="18dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="EAR HEALTH"
+            android:textColor="#FFFFFF"
+            android:textSize="28sp"
+            android:textStyle="bold"
+            android:textAllCaps="true"
+            android:letterSpacing="0.05" />
+
+        <TextView
+            android:id="@+id/tvHeaderSub"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:text="MONITOR · PROTECT YOUR HEARING"
+            android:textColor="@color/accent"
+            android:textSize="13sp"
+            android:textStyle="bold"
+            android:textAllCaps="true"
+            android:letterSpacing="0.08" />
+
+        <View
+            android:layout_width="40dp"
+            android:layout_height="6dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/accent" />
+
+    </LinearLayout>
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -18,88 +59,116 @@
             android:orientation="vertical"
             android:padding="16dp">
 
-            <TextView
-                android:id="@+id/tvTitle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/app_name"
-                android:textColor="@color/text_primary"
-                android:textSize="24sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="2dp"
-                android:text="Protect your hearing. 60 minutes at a time."
-                android:textColor="@color/text_muted"
-                android:textSize="13sp" />
-
             <!-- Volume cap card -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
                 android:orientation="vertical"
-                android:background="@color/card"
+                android:background="@drawable/brutal_card"
                 android:padding="16dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:background="#000000"
+                    android:paddingStart="10dp"
+                    android:paddingTop="6dp"
+                    android:paddingEnd="10dp"
+                    android:paddingBottom="6dp"
                     android:text="VOLUME CAP"
-                    android:textColor="@color/text_muted"
-                    android:textSize="12sp" />
+                    android:textColor="#FFFFFF"
+                    android:textSize="13sp"
+                    android:textStyle="bold"
+                    android:textAllCaps="true"
+                    android:letterSpacing="0.08" />
 
                 <TextView
-                    android:id="@+id/tvServiceState"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:text="Cap active"
-                    android:textColor="@color/accent"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
+                    android:layout_marginTop="14dp"
+                    android:text="MEDIA LEVEL"
+                    android:textColor="@color/text_muted"
+                    android:textSize="11sp"
+                    android:textStyle="bold"
+                    android:textAllCaps="true"
+                    android:letterSpacing="0.1" />
 
                 <TextView
                     android:id="@+id/tvVolumePct"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
                     android:text="Media volume: --%"
                     android:textColor="@color/text_primary"
-                    android:textSize="16sp" />
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    android:fontFamily="monospace" />
 
                 <SeekBar
                     android:id="@+id/seekVolume"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
                     android:max="100"
                     android:progress="0"
-                    android:enabled="false" />
+                    android:enabled="false"
+                    android:progressDrawable="@drawable/brutal_seekbar"
+                    android:thumb="@drawable/brutal_thumb"
+                    android:splitTrack="false" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="3dp"
+                    android:layout_marginTop="12dp"
+                    android:background="@color/ink" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:text="Cap at"
+                    android:layout_marginTop="14dp"
+                    android:text="CAP AT"
                     android:textColor="@color/text_muted"
-                    android:textSize="12sp" />
+                    android:textSize="11sp"
+                    android:textStyle="bold"
+                    android:textAllCaps="true"
+                    android:letterSpacing="0.1" />
 
                 <SeekBar
                     android:id="@+id/seekCap"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:max="100" />
+                    android:layout_marginTop="2dp"
+                    android:max="100"
+                    android:progressDrawable="@drawable/brutal_seekbar"
+                    android:thumb="@drawable/brutal_thumb"
+                    android:splitTrack="false" />
 
                 <TextView
                     android:id="@+id/tvVolumeCap"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
                     android:text="Cap: 60%"
-                    android:textColor="@color/accent"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
+                    android:textColor="@color/text_primary"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:fontFamily="monospace" />
+
+                <TextView
+                    android:id="@+id/tvServiceState"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="14dp"
+                    android:background="@drawable/brutal_stamp"
+                    android:paddingStart="12dp"
+                    android:paddingTop="7dp"
+                    android:paddingEnd="12dp"
+                    android:paddingBottom="7dp"
+                    android:text="Cap active"
+                    android:textColor="#000000"
+                    android:textSize="13sp"
+                    android:textStyle="bold"
+                    android:textAllCaps="true"
+                    android:letterSpacing="0.08" />
 
             </LinearLayout>
 
@@ -109,40 +178,51 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:orientation="vertical"
-                android:background="@color/card"
+                android:background="@drawable/brutal_card"
                 android:padding="16dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="SESSION (60/60)"
-                    android:textColor="@color/text_muted"
-                    android:textSize="12sp" />
+                    android:background="#000000"
+                    android:paddingStart="10dp"
+                    android:paddingTop="6dp"
+                    android:paddingEnd="10dp"
+                    android:paddingBottom="6dp"
+                    android:text="SESSION · 60/60"
+                    android:textColor="#FFFFFF"
+                    android:textSize="13sp"
+                    android:textStyle="bold"
+                    android:textAllCaps="true"
+                    android:letterSpacing="0.08" />
 
                 <TextView
                     android:id="@+id/tvSessionState"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
+                    android:layout_marginTop="14dp"
                     android:text="Idle"
                     android:textColor="@color/text_primary"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:textAllCaps="true"
+                    android:letterSpacing="0.1" />
 
                 <TextView
                     android:id="@+id/tvElapsed"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="4dp"
                     android:text="00:00"
                     android:textColor="@color/text_primary"
-                    android:textSize="34sp"
+                    android:textSize="44sp"
+                    android:textStyle="bold"
                     android:fontFamily="monospace" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
+                    android:layout_marginTop="16dp"
                     android:orientation="horizontal">
 
                     <Button
@@ -150,17 +230,30 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:layout_marginEnd="8dp"
-                        android:text="Start" />
+                        android:layout_marginEnd="6dp"
+                        android:minHeight="56dp"
+                        android:background="@drawable/brutal_btn"
+                        android:textColor="@drawable/brutal_text_btn"
+                        android:text="Start"
+                        android:textSize="15sp"
+                        android:textStyle="bold"
+                        android:textAllCaps="true"
+                        android:letterSpacing="0.1" />
 
                     <Button
                         android:id="@+id/btnPause"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:layout_marginStart="8dp"
+                        android:layout_marginStart="6dp"
+                        android:minHeight="56dp"
+                        android:background="@drawable/brutal_btn_outline"
+                        android:textColor="@drawable/brutal_text_btn_outline"
                         android:text="Pause"
-                        android:enabled="false" />
+                        android:textSize="15sp"
+                        android:textStyle="bold"
+                        android:textAllCaps="true"
+                        android:letterSpacing="0.1" />
 
                 </LinearLayout>
 
@@ -168,10 +261,13 @@
                     android:id="@+id/tvHint"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:text="You will be reminded after 60 continuous minutes."
+                    android:layout_marginTop="12dp"
+                    android:text="YOU WILL BE REMINDED AFTER 60 CONTINUOUS MINUTES."
                     android:textColor="@color/text_muted"
-                    android:textSize="12sp" />
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:textAllCaps="true"
+                    android:letterSpacing="0.06" />
 
             </LinearLayout>
 
@@ -181,42 +277,57 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:orientation="vertical"
-                android:background="@color/card"
+                android:background="@drawable/brutal_card"
                 android:padding="16dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:background="#000000"
+                    android:paddingStart="10dp"
+                    android:paddingTop="6dp"
+                    android:paddingEnd="10dp"
+                    android:paddingBottom="6dp"
                     android:text="HISTORY"
-                    android:textColor="@color/text_muted"
-                    android:textSize="12sp" />
+                    android:textColor="#FFFFFF"
+                    android:textSize="13sp"
+                    android:textStyle="bold"
+                    android:textAllCaps="true"
+                    android:letterSpacing="0.08" />
 
                 <TextView
                     android:id="@+id/tvToday"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="14dp"
                     android:text="Today: -- min"
                     android:textColor="@color/text_primary"
-                    android:textSize="16sp" />
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:fontFamily="monospace" />
 
                 <TextView
                     android:id="@+id/tvWeek"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
+                    android:layout_marginTop="6dp"
                     android:text="This week: -- min"
                     android:textColor="@color/text_primary"
-                    android:textSize="16sp" />
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:fontFamily="monospace" />
 
                 <TextView
                     android:id="@+id/tvSessions"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
+                    android:layout_marginTop="8dp"
                     android:text="Sessions today: --"
                     android:textColor="@color/text_muted"
-                    android:textSize="13sp" />
+                    android:textSize="13sp"
+                    android:textStyle="bold"
+                    android:textAllCaps="true"
+                    android:letterSpacing="0.05" />
 
             </LinearLayout>
 
@@ -224,12 +335,15 @@
                 android:id="@+id/tvFooter"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
+                android:layout_gravity="center_horizontal"
                 android:layout_marginTop="16dp"
                 android:gravity="center"
-                android:text="Battery-saver note: the cap service shows a persistent notification, as Android requires for background audio."
+                android:text="BATTERY-SAVER NOTE: THE CAP SERVICE SHOWS A PERSISTENT NOTIFICATION — REQUIRED BY ANDROID."
                 android:textColor="@color/text_muted"
-                android:textSize="11sp" />
+                android:textSize="11sp"
+                android:textStyle="bold"
+                android:textAllCaps="true"
+                android:letterSpacing="0.06" />
 
         </LinearLayout>
 
