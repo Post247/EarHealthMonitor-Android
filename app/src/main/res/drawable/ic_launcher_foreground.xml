@@ -5,32 +5,41 @@
     android:viewportWidth="108"
     android:viewportHeight="108">
 
-    <!-- Ear ring (circle) -->
+    <!-- Corner brackets (viewfinder) -->
     <path
-        android:pathData="M54,54 m-24,0 a24,24 0 1,1 48,0 a24,24 0 1,1 -48,0"
-        android:strokeColor="#34D399"
-        android:strokeWidth="5"
-        android:fillColor="#00000000" />
+        android:fillColor="#000000"
+        android:pathData="M22,22 h8 v30 h-8 z" />
+    <path
+        android:fillColor="#000000"
+        android:pathData="M22,22 h30 v8 h-30 z" />
+    <path
+        android:fillColor="#000000"
+        android:pathData="M78,22 h8 v30 h-8 z" />
+    <path
+        android:fillColor="#000000"
+        android:pathData="M78,22 h30 v8 h-30 z" />
+    <path
+        android:fillColor="#000000"
+        android:pathData="M22,78 h8 v30 h-8 z" />
+    <path
+        android:fillColor="#000000"
+        android:pathData="M22,78 h30 v8 h-30 z" />
+    <path
+        android:fillColor="#000000"
+        android:pathData="M78,78 h8 v30 h-8 z" />
+    <path
+        android:fillColor="#000000"
+        android:pathData="M78,78 h30 v8 h-30 z" />
 
-    <!-- Inner dot -->
+    <!-- Gauge bars (volume/level motif) -->
     <path
-        android:fillColor="#34D399"
-        android:pathData="M50,54 a4,4 0 1,0 8,0 a4,4 0 1,0 -8,0" />
-
-    <!-- Arc 1 -->
+        android:fillColor="#000000"
+        android:pathData="M34,60 h9 v14 h-9 z" />
     <path
-        android:pathData="M84,42 a33,33 0 0,1 0,24"
-        android:strokeColor="#66A0D2A6"
-        android:strokeLineCap="round"
-        android:strokeWidth="5"
-        android:fillColor="#00000000" />
-
-    <!-- Arc 2 -->
+        android:fillColor="#FFD600"
+        android:pathData="M49,52 h9 v22 h-9 z" />
     <path
-        android:pathData="M91,34 a41,41 0 0,1 0,40"
-        android:strokeColor="#33A0D2A6"
-        android:strokeLineCap="round"
-        android:strokeWidth="4"
-        android:fillColor="#00000000" />
+        android:fillColor="#000000"
+        android:pathData="M64,56 h9 v18 h-9 z" />
 
 </vector>
