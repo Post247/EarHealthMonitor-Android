@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+
+    <!-- Ear ring (circle) -->
+    <path
+        android:pathData="M54,54 m-24,0 a24,24 0 1,1 48,0 a24,24 0 1,1 -48,0"
+        android:strokeColor="#34D399"
+        android:strokeWidth="5"
+        android:fillColor="#00000000" />
+
+    <!-- Inner dot -->
+    <path
+        android:fillColor="#34D399"
+        android:pathData="M50,54 a4,4 0 1,0 8,0 a4,4 0 1,0 -8,0" />
+
+    <!-- Arc 1 -->
+    <path
+        android:pathData="M84,42 a33,33 0 0,1 0,24"
+        android:strokeColor="#66A0D2A6"
+        android:strokeLineCap="round"
+        android:strokeWidth="5"
+        android:fillColor="#00000000" />
+
+    <!-- Arc 2 -->
+    <path
+        android:pathData="M91,34 a41,41 0 0,1 0,40"
+        android:strokeColor="#33A0D2A6"
+        android:strokeLineCap="round"
+        android:strokeWidth="4"
+        android:fillColor="#00000000" />
+
+</vector>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Ear Health Monitor</string>
+    <string name="service_channel_name">Volume cap service</string>
+    <string name="service_channel_desc">Keeps the volume cap active in the background</string>
+    <string name="session_channel_name">Session alerts</string>
+    <string name="session_channel_desc">60/60 listening reminders and alerts</string>
+</resources>
