@@ -58,6 +58,15 @@ class Store(context: Context) {
         get() = prefs.getString(KEY_ALERT_DAY, null)
         set(v) = prefs.edit().putString(KEY_ALERT_DAY, v).apply()
 
+    /**
+     * How much active (non-paused) time of the current session has already been
+     * logged into history. Persisted so that a killed process doesn't lose the
+     * gap between its last tick and the restart.
+     */
+    var loggedActiveMs: Long
+        get() = prefs.getLong(KEY_LOGGED_ACTIVE, 0L)
+        set(v) = prefs.edit().putLong(KEY_LOGGED_ACTIVE, v).apply()
+
     // ---- history ----
 
     fun todayMinutes(): Int = cachedStarts[LocalDate.now()]?.let { (it / 60_000L).toInt() } ?: 0
@@ -105,6 +114,7 @@ class Store(context: Context) {
         private const val KEY_ALERT_SENT = "alert_sent"
         private const val KEY_DAILY_ALERT = "daily_alert_sent"
         private const val KEY_ALERT_DAY = "alert_day"
+        private const val KEY_LOGGED_ACTIVE = "logged_active_ms"
         private const val KEY_MINUTES = "minutes_by_day"
         private const val KEY_SESSIONS = "sessions_by_day"
 

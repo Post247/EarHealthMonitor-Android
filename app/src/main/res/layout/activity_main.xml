@@ -56,8 +56,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
-                    android:text="Service: off"
-                    android:textColor="@color/danger"
+                    android:text="Cap active"
+                    android:textColor="@color/accent"
                     android:textSize="14sp"
                     android:textStyle="bold" />
 

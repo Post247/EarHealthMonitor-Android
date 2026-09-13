@@ -22,6 +22,7 @@ class MainActivity : AppCompatActivity() {
     private var audioManager: AudioManager? = null
 
     private lateinit var tvVolumePct: TextView
+    private lateinit var tvServiceState: TextView
     private lateinit var seekVolume: SeekBar
     private lateinit var seekCap: SeekBar
     private lateinit var tvVolumeCap: TextView
@@ -34,7 +35,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var tvSessions: TextView
 
     private val handler = Handler(Looper.getMainLooper())
-    private var lastFlushMs: Long = System.currentTimeMillis()
 
     private val tickRunnable = object : Runnable {
         override fun run() {
@@ -52,6 +52,7 @@ class MainActivity : AppCompatActivity() {
         Alerts.ensureChannels(this)
 
         tvVolumePct = findViewById(R.id.tvVolumePct)
+        tvServiceState = findViewById(R.id.tvServiceState)
         seekVolume = findViewById(R.id.seekVolume)
         seekCap = findViewById(R.id.seekCap)
         tvVolumeCap = findViewById(R.id.tvVolumeCap)
@@ -86,13 +87,17 @@ class MainActivity : AppCompatActivity() {
             updateSessionButtons()
         }
 
+        // The cap service is started on every resume, so it is effectively
+        // always on while the app has been opened.
+        tvServiceState.text = "Cap active"
+        tvServiceState.setTextColor(ContextCompat.getColor(this, R.color.accent))
+
         refreshVolumeDisplay()
         requestNotificationPermissionIfNeeded()
     }
 
     override fun onStart() {
         super.onStart()
-        lastFlushMs = System.currentTimeMillis()
         handler.post(tickRunnable)
         updateSessionButtons()
     }
@@ -144,38 +149,35 @@ class MainActivity : AppCompatActivity() {
         store.pausedAccumMs = 0L
         store.lastPauseStartMs = now
         store.continuousAlertSent = false
+        store.loggedActiveMs = 0L
         store.newSessionStarted()
-        lastFlushMs = now
         updateSessionButtons()
     }
 
     private fun stopSession() {
-        flushActive()
+        val now = System.currentTimeMillis()
+        val active = SessionLogic.activeMs(store, now) ?: 0L
+        if (active > store.loggedActiveMs) {
+            store.addActiveMinutes(active - store.loggedActiveMs)
+            store.loggedActiveMs = active
+        }
         store.sessionRunning = false
         store.sessionPaused = false
         store.pausedAccumMs = 0L
+        store.loggedActiveMs = 0L
     }
 
     private fun togglePause() {
         if (!store.sessionRunning) return
         val now = System.currentTimeMillis()
         if (store.sessionPaused) {
-            // resume: close the pause span and align the flush baseline
             store.pausedAccumMs += now - store.lastPauseStartMs
             store.sessionPaused = false
-            lastFlushMs = now
+            store.loggedActiveMs = SessionLogic.activeMs(store, now) ?: store.loggedActiveMs
         } else {
             store.sessionPaused = true
             store.lastPauseStartMs = now
         }
-    }
-
-    /** Adds active time since the last tick into daily history (crash-safe accrual). */
-    private fun flushActive() {
-        if (!store.sessionRunning || store.sessionPaused) return
-        val now = System.currentTimeMillis()
-        store.addActiveMinutes(now - lastFlushMs)
-        lastFlushMs = now
     }
 
     private fun tick() {
@@ -191,13 +193,15 @@ class MainActivity : AppCompatActivity() {
         }
 
         val now = System.currentTimeMillis()
+        val active = SessionLogic.activeMs(store, now) ?: 0L
 
-        if (!store.sessionPaused) {
-            store.addActiveMinutes(now - lastFlushMs)
-            lastFlushMs = now
+        // Crash-safe accrual: only log the *delta* since the last checkpoint,
+        // and persist the checkpoint so a killed process's gap is recovered.
+        if (active > store.loggedActiveMs) {
+            store.addActiveMinutes(active - store.loggedActiveMs)
+            store.loggedActiveMs = active
         }
 
-        val active = SessionLogic.activeMs(store, now) ?: 0L
         tvElapsed.text = SessionLogic.format(active)
         tvSessionState.text = if (store.sessionPaused) "Paused" else "Listening"
         tvSessionState.setTextColor(

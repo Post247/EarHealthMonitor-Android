@@ -61,6 +61,12 @@ class VolumeCapService : Service() {
 
     override fun onBind(intent: Intent?): IBinder? = null
 
+    /** Swipe-away closes the app, so stop the cap service deterministically. */
+    override fun onTaskRemoved(rootIntent: Intent?) {
+        super.onTaskRemoved(rootIntent)
+        stopSelf()
+    }
+
     /** Clamps the current media volume down to the configured cap (percent → index). */
     private fun enforceCap() {
         val am = audioManager ?: return
