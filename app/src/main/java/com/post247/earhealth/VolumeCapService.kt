@@ -12,11 +12,12 @@ import android.util.Log
 /**
  * Foreground service that enforces the media-volume cap.
  *
- * Android does not allow silent background volume control. A call to
- * AudioManager.setStreamVolume() only has effect while the app is visible or
- * while this "while-in-use" foreground service is running, so the cap is
- * implemented as a mediaPlayback foreground service with a persistent
- * notification — exactly the trade-off discovered during research.
+ * Android offers no public volume-change callback, so the cap is enforced by a
+ * lightweight poll of AudioManager.getStreamVolume(). And because Android's
+ * background audio hardening (Android 17 / API 37) makes setStreamVolume() fail
+ * silently when a background process has no while-in-use capabilities, the cap
+ * runs as a mediaPlayback foreground service with a persistent notification —
+ * the trade-off discovered during research.
  */
 class VolumeCapService : Service() {
 
@@ -25,11 +26,11 @@ class VolumeCapService : Service() {
     private lateinit var store: Store
     private var running = false
 
-    private val volumeCallback = object : AudioManager.VolumeCallback() {
-        override fun onVolumeChanged(stream: Int, flags: Int) {
-            if (stream == AudioManager.STREAM_MUSIC) {
-                enforceCap()
-            }
+    private val pollRunnable = object : Runnable {
+        override fun run() {
+            if (!running) return
+            enforceCap()
+            handler.postDelayed(this, POLL_MS)
         }
     }
 
@@ -43,8 +44,8 @@ class VolumeCapService : Service() {
         if (!running) {
             Alerts.ensureChannels(this)
             startForeground(Alerts.SERVICE_ID, Alerts.serviceNotification(this))
-            audioManager?.registerAudioVolumeCallback(volumeCallback, handler)
             running = true
+            handler.post(pollRunnable)
             Log.i(TAG, "Volume cap service started")
         }
         enforceCap()
@@ -52,8 +53,8 @@ class VolumeCapService : Service() {
     }
 
     override fun onDestroy() {
-        audioManager?.unregisterAudioVolumeCallback(volumeCallback)
         running = false
+        handler.removeCallbacks(pollRunnable)
         Log.i(TAG, "Volume cap service stopped")
         super.onDestroy()
     }
@@ -75,6 +76,6 @@ class VolumeCapService : Service() {
 
     companion object {
         private const val TAG = "VolumeCapService"
-        const val ACTION_CONTROL = "com.post247.earhealth.control"
+        private const val POLL_MS = 700L
     }
 }

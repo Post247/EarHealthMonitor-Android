@@ -13,7 +13,7 @@ class Store(context: Context) {
     private val prefs: SharedPreferences =
         context.getSharedPreferences("ear_health", Context.MODE_PRIVATE)
 
-    private var cachedStarts: MutableMap<LocalDate, Long> = loadIntMap(prefs, KEY_MINUTES)
+    private var cachedStarts: MutableMap<LocalDate, Long> = loadLongMap(prefs, KEY_MINUTES)
     private var cachedSessions: MutableMap<LocalDate, Int> = loadIntMap(prefs, KEY_SESSIONS)
 
     // ---- settings ----
@@ -89,7 +89,7 @@ class Store(context: Context) {
         persist(cachedSessions, KEY_SESSIONS)
     }
 
-    private fun persist(map: Map<LocalDate, Int>, key: String) {
+    private fun persist(map: Map<LocalDate, Any>, key: String) {
         val sb = StringBuilder()
         map.forEach { (date, v) -> sb.append(date).append('=').append(v).append('\n') }
         prefs.edit().putString(key, sb.toString()).apply()
@@ -117,6 +117,22 @@ class Store(context: Context) {
                     if (parts.size == 2) {
                         runCatching {
                             map[LocalDate.parse(parts[0])] = parts[1].toInt()
+                        }
+                    }
+                }
+            }
+            return map
+        }
+
+        private fun loadLongMap(p: SharedPreferences, key: String): MutableMap<LocalDate, Long> {
+            val raw = p.getString(key, null)
+            val map = mutableMapOf<LocalDate, Long>()
+            if (raw != null) {
+                raw.split("\n").forEach { line ->
+                    val parts = line.split("=")
+                    if (parts.size == 2) {
+                        runCatching {
+                            map[LocalDate.parse(parts[0])] = parts[1].toLong()
                         }
                     }
                 }

@@ -36,14 +36,6 @@ class MainActivity : AppCompatActivity() {
     private val handler = Handler(Looper.getMainLooper())
     private var lastFlushMs: Long = System.currentTimeMillis()
 
-    private val volumeCallback = object : AudioManager.VolumeCallback() {
-        override fun onVolumeChanged(stream: Int, flags: Int) {
-            if (stream == AudioManager.STREAM_MUSIC) {
-                refreshVolumeDisplay()
-            }
-        }
-    }
-
     private val tickRunnable = object : Runnable {
         override fun run() {
             tick()
@@ -100,7 +92,6 @@ class MainActivity : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
-        audioManager?.registerAudioVolumeCallback(volumeCallback, handler)
         lastFlushMs = System.currentTimeMillis()
         handler.post(tickRunnable)
         updateSessionButtons()
@@ -108,7 +99,6 @@ class MainActivity : AppCompatActivity() {
 
     override fun onStop() {
         super.onStop()
-        audioManager?.unregisterAudioVolumeCallback(volumeCallback)
         handler.removeCallbacks(tickRunnable)
     }
 
